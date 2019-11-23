@@ -1,6 +1,7 @@
 import React from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
+import { PlayerDetails } from './PlayerDetails';
 
 export class Player extends React.Component {
 
@@ -23,11 +24,7 @@ export class Player extends React.Component {
     render() {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p) => this.selectPlayer(p)} />
-            <div className="Player-details">
-                <p> Nom : {this.state.selected.nom} </p>
-                <p> Prenom : {this.state.selected.prenom}</p>
-                <p> Nickname : {this.state.selected.nickname}</p>
-            </div>
+            <PlayerDetails player={this.state.selected} />
         </ >;
     }
 }
