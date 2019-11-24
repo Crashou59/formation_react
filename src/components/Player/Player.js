@@ -2,6 +2,7 @@ import React from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
+import Registration from '../Registration';
 
 export class Player extends React.Component {
 
@@ -21,10 +22,16 @@ export class Player extends React.Component {
         });
     }
 
+    registrationEvent(ev, newPlayer) {
+        ev.preventDefault();
+        this.setState({ players: [...this.state.players, newPlayer] });
+    }
+
     render() {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p) => this.selectPlayer(p)} />
             <PlayerDetails player={this.state.selected} />
+            <Registration onRegistration={(ev, p) => this.registrationEvent(ev, p)} />
         </ >;
     }
 }

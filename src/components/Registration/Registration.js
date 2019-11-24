@@ -12,13 +12,8 @@ export class Registration extends React.Component {
         this.setState({ [event.target.name]: value });
     }
 
-    handleSubmit(event) {
-        console.log(this.state);
-        event.preventDefault();
-    }
-
     render() {
-        return <form onSubmit={(e) => this.handleSubmit(e)}>
+        return <form onSubmit={(ev) => this.props.onRegistration(ev,{ ...this.state })}>
             <p>
                 Nickame
           <input name="nickname" type="text" value={this.state.nickname} onChange={(e) => this.handleChange(e)} />
