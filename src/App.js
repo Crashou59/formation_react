@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
 import Player from './components/Player';
+import { Registration } from './components/Registration/Registration';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
 
       </header>
       <Player />
+      <Registration />
     </div >
   );
 }
