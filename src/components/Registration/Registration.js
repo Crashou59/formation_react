@@ -1,46 +1,47 @@
 import React from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 export class Registration extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false };
-    }
-
-    handleChange(event) {
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        this.setState({ [event.target.name]: value });
-    }
-
     render() {
-        return <form onSubmit={(ev) => this.props.onRegistration(ev,{ ...this.state })}>
-            <p>
-                Nickame
-          <input name="nickname" type="text" value={this.state.nickname} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Nom
-            <input name="nom" type="text" value={this.state.nom} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Prénom
-            <input name="prenom" type="text" value={this.state.prenom} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Sexe
-                <select name="sexe" value={this.state.sexe} onChange={(e) => this.handleChange(e)}>
+        return <Formik
+            initialValues={{ nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false }}
+            validationSchema={Yup.object({
+                nickname: Yup.string()
+                    .max(15, 'Must be 15 characters or less')
+                    .required('Required'),
+                nom: Yup.string()
+                    .max(20, 'Must be 20 characters or less')
+                    .required('Required')
+            })}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+                this.props.onRegistration(values);
+                setSubmitting(true);
+                resetForm({});
+            }}
+        >
+            <Form >
+                <label htmlFor="nickname">nickname</label>
+                <Field name="nickname" type="text" />
+                <ErrorMessage name="nickname" />
+                <label htmlFor="nom">nom</label>
+                <Field name="nom" type="text" />
+                <ErrorMessage name="nom" />
+                <label htmlFor="prenom">prenom</label>
+                <Field name="prenom" type="text" />
+                <label htmlFor="sexe">sexe</label>
+                <Field name="sexe" as="select" className="my-select">
                     <option value="H">Homme</option>
                     <option value="F">Femme</option>
-                </select>
-            </p>
-            <p>
-                babyfoot
-            <input name="babyfoot" type="checkbox" checked={this.state.babyfoot} onChange={(e) => this.handleChange(e)} />
-                billard
-            <input name="billard" type="checkbox" checked={this.state.billard} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <input name="nickname" type="submit" value="Inscrire" />
-        </form>;
+                </Field>
+                <label htmlFor="babyfoot">babyfoot</label>
+                <Field name="babyfoot" type="checkbox" />
+                <label htmlFor="billard">billard</label>
+                <Field name="billard" type="checkbox" />
+                <button type="submit">Inscrire</button>
+            </Form>
+        </Formik>
     }
 
 }

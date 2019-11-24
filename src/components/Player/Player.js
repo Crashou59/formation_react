@@ -22,8 +22,7 @@ export class Player extends React.Component {
         });
     }
 
-    registrationEvent(ev, newPlayer) {
-        ev.preventDefault();
+    registrationEvent(newPlayer) {
         this.setState({ players: [...this.state.players, newPlayer] });
     }
 
@@ -31,7 +30,7 @@ export class Player extends React.Component {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p) => this.selectPlayer(p)} />
             <PlayerDetails player={this.state.selected} />
-            <Registration onRegistration={(ev, p) => this.registrationEvent(ev, p)} />
+            <Registration onRegistration={p => this.registrationEvent(p)} />
         </ >;
     }
 }
