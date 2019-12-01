@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import './Registration.css';
 
 export class Registration extends React.Component {
 
@@ -24,10 +25,10 @@ export class Registration extends React.Component {
             <Form >
                 <label htmlFor="nickname">nickname</label>
                 <Field name="nickname" type="text" />
-                <ErrorMessage name="nickname" />
+                <ErrorMessage name="nickname" render={msg => <div className="error">{msg}</div>} />
                 <label htmlFor="nom">nom</label>
                 <Field name="nom" type="text" />
-                <ErrorMessage name="nom" />
+                <ErrorMessage name="nom" render={msg => <div className="error">{msg}</div>} />
                 <label htmlFor="prenom">prenom</label>
                 <Field name="prenom" type="text" />
                 <label htmlFor="sexe">sexe</label>
