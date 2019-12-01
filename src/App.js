@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
-import Player from './components/Player';
+import { TopMenu } from './components/TopMenu/TopMenu';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Header nickname="Toto"></Header>
 
       </header>
-      <Player />
+      <TopMenu />
     </div >
   );
 }
