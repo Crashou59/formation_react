@@ -1,4 +1,6 @@
-import { retrivePlayersLastName } from './Player';
+import React from 'react';
+import { mount } from 'enzyme';
+import { retrivePlayersLastName, Player } from './Player';
 
 describe('retrivePlayersLastName', () => {
 
@@ -22,6 +24,23 @@ expect(retrivePlayersLastName([])).toEqual([]);
 
 it('Should return an empty array if players is not an array', () => {
 expect(retrivePlayersLastName({})).toEqual([]);
+});
+
+});
+
+describe('Player component', () => {
+
+	const container = mount(<Player />);
+
+	const localState = {
+            players: [{ nom: 'my name', prenom: 'my first name', nickname: 'my nickname' }],
+            selected: {}
+        };
+    container.setState(localState);
+
+it('Should have state and no props', () => {
+expect(container.instance().state).toEqual(localState);
+expect(container.instance().props).toEqual({});
 });
 
 });
