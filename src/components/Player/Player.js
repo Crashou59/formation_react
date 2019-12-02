@@ -4,6 +4,10 @@ import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
 import Registration from '../Registration';
 
+export const retrivePlayersLastName = players => {
+        return players.map(player => player.nom);
+};
+
 export class Player extends React.Component {
 
     constructor(props) {
