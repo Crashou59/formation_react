@@ -5,7 +5,10 @@ import { PlayerDetails } from './PlayerDetails';
 import Registration from '../Registration';
 
 export const retrivePlayersLastName = players => {
-        return players.map(player => player.nom);
+    if (!Array.isArray(players)) {
+        return [];
+    }
+    return players.map(player => player.nom).filter(elm => elm);
 };
 
 export class Player extends React.Component {
