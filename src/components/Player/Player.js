@@ -3,6 +3,13 @@ import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
 
+export const retrivePlayersLastName = players => {
+    if (!Array.isArray(players)) {
+        return [];
+    }
+    return players.map(player => player.nom).filter(elm => elm);
+};
+
 export class Player extends React.Component {
 
     constructor(props) {
