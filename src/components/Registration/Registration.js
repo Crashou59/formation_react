@@ -2,8 +2,10 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Registration.css';
+import { connect } from 'react-redux';
+import { addPlayer } from './../../actions/PlayerActions';
 
-export class Registration extends React.Component {
+class Registration extends React.Component {
 
     render() {
         return <Formik
@@ -17,7 +19,7 @@ export class Registration extends React.Component {
                     .required('Required')
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                this.props.onRegistration(values);
+                this.props.registerPlayer(values);
                 setSubmitting(true);
                 resetForm({});
             }}
@@ -46,3 +48,13 @@ export class Registration extends React.Component {
     }
 
 }
+
+
+const mapDispatchToProps = dispatch => ({
+    registerPlayer: (p) => dispatch(addPlayer(p))
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Registration)
