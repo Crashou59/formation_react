@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerDetails coponent renders correctly 1`] = `
+<div
+  className="Player-details"
+>
+  <p>
+     Nom : 
+    koala
+     
+  </p>
+  <p>
+     Prenom : 
+    koala2
+  </p>
+  <p>
+     Nickname : 
+    nickname koala
+  </p>
+</div>
+`;

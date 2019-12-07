@@ -5,6 +5,13 @@ import { PlayerDetails } from './PlayerDetails';
 import { selectPlayer } from './../../actions/PlayerActions';
 import { connect } from 'react-redux'
 
+
+export const retrivePlayersLastName = players => {
+    if (!Array.isArray(players)) {
+        return [];
+    }
+    return players.map(player => player.nom).filter(elm => elm);
+};
 class Player extends React.Component {
     render() {
         return <>
