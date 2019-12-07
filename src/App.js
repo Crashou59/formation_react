@@ -2,11 +2,25 @@ import React from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
 import { TopMenu } from './components/TopMenu/TopMenu';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import PlayerReducer from './reducers/PlayerReducer';
+import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import playerEpic from './epics/PlayerEpics';
 
-const store = createStore(PlayerReducer)
+
+export const rootEpic = combineEpics(
+  playerEpic
+);
+
+const epicMiddleware = createEpicMiddleware();
+const store = createStore(
+  PlayerReducer,
+  applyMiddleware(epicMiddleware));
+
+
+epicMiddleware.run(rootEpic);
+
 
 
 function App() {
