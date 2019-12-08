@@ -1,9 +1,12 @@
 
 import React from 'react';
 
-export class Header extends React.Component {
+type MyProps = {
+    nickname: string;
+};
+export class Header extends React.Component<MyProps> {
 
     render() {
-        return <span>Hey !! Salut toi !</span>
+        return <span>Hey !! {this.props.nickname} !</span>
     }
 }
