@@ -3,10 +3,16 @@ import {
     BrowserRouter,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import { Player } from '../Player/Player';
 import { Registration } from '../Registration/Registration';
+
+const fakeAuth = {
+    isAuthenticated: false
+};
+
 
 export class TopMenu extends React.Component {
     render() {
@@ -18,6 +24,12 @@ export class TopMenu extends React.Component {
                     </li>
                     <li>
                         <Link to="/registration">Registration</Link>
+                    </li>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                    <li>
+                        <Link to="/admin">Admin</Link>
                     </li>
                 </ul>
 
@@ -32,9 +44,33 @@ export class TopMenu extends React.Component {
                     <Route path="/registration">
                         <Registration />
                     </Route>
+                    <Route path="/login" render={() => { fakeAuth.isAuthenticated = true; return <div>I am logged</div> }} />
+                    <PrivateRoute > <div> admin page</div></PrivateRoute>
+                    <Route path="*">
+                        <div>oups ! I  did it again ...</div>
+                    </Route>
                 </Switch>
             </div>
         </BrowserRouter >;
 
+    }
+}
+
+class PrivateRoute extends React.Component {
+    render() {
+        return (<Route
+            render={({ location }) =>
+                fakeAuth.isAuthenticated ? (
+                    this.props.children
+                ) : (
+                        <Redirect
+                            to={{
+                                pathname: "/",
+                                state: { from: location }
+                            }}
+                        />
+                    )
+            }
+        />);
     }
 }
