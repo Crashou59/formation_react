@@ -1,5 +1,10 @@
 import React from 'react';
+import { PlayerType } from '../Player/Player';
 
+
+type MyProps = {
+    onRegistration: (e: React.FormEvent<HTMLFormElement>, p: PlayerType) => void;
+};
 
 type MyState = {
     nickname: string;
@@ -9,7 +14,7 @@ type MyState = {
     babyfoot: boolean;
     billard: boolean;
 };
-export class Registration extends React.Component<{}, MyState> {
+export class Registration extends React.Component<MyProps, MyState> {
 
     state = { nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false };
 
@@ -24,16 +29,8 @@ export class Registration extends React.Component<{}, MyState> {
         }
     }
 
-
-    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        console.log(this.state);
-        event.preventDefault();
-    }
-
-
     render() {
-        return <form onSubmit={(e) => this.handleSubmit(e)
-        } >
+        return <form onSubmit={(ev) => this.props.onRegistration(ev, { ...this.state })}>
             <p>
                 Nickame
           <input name="nickname" type="text" value={this.state.nickname} onChange={(e) => this.handleChange(e)} />

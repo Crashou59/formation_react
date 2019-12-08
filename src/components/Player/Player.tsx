@@ -23,6 +23,11 @@ export class Player extends React.Component<{}, MyState> {
         selected: {}
     }
 
+    registrationEvent(e: React.FormEvent<HTMLFormElement>, p: PlayerType) {
+        e.preventDefault();
+        this.setState({ players: [...this.state.players, p] });
+    }
+
     selectPlayer(selected: PlayerType) {
         this.setState({
             selected
@@ -33,7 +38,7 @@ export class Player extends React.Component<{}, MyState> {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p: PlayerType) => this.selectPlayer(p)} />
             <PlayerDetails player={this.state.selected} />
-            <Registration />
+            <Registration onRegistration={(ev, p) => this.registrationEvent(ev, p)} />
         </ >;
     }
 }
