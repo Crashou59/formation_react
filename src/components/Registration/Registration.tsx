@@ -13,62 +13,51 @@ export class Registration extends React.Component<{}, MyState> {
 
     state = { nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false };
 
-    handleNicknameChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ nickname: event.currentTarget.value });
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
+        let value: string | boolean = event.currentTarget.value;
+        if (event instanceof HTMLInputElement && event.currentTarget.type === 'checkbox') {
+            value = (event as React.ChangeEvent<HTMLInputElement>).currentTarget.checked;
+        }
+        if (Object.keys(this.state).includes(event.currentTarget.name)) {
+            this.setState({ [event.currentTarget.name]: value } as Pick<MyState, keyof MyState>);
+        }
     }
 
-    handleNomChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ nom: event.currentTarget.value });
-    }
-
-    handlePrenomChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ prenom: event.currentTarget.value });
-    }
-
-    handleSexeChange(event: React.FormEvent<HTMLSelectElement>) {
-        this.setState({ sexe: event.currentTarget.value });
-    }
-
-    handleBabyfootChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ babyfoot: event.currentTarget.checked });
-    }
-
-    handleBillardChange(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ billard: event.currentTarget.checked });
-    }
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         console.log(this.state);
         event.preventDefault();
     }
 
+
     render() {
         return <form onSubmit={(e) => this.handleSubmit(e)
         } >
             <p>
                 Nickame
-          <input type="text" value={this.state.nickname} onChange={(e) => this.handleNicknameChange(e)} />
+          <input name="nickname" type="text" value={this.state.nickname} onChange={(e) => this.handleChange(e)} />
             </p>
             <p>
                 Nom
-            <input type="text" value={this.state.nom} onChange={(e) => this.handleNomChange(e)} />
+            <input name="nom" type="text" value={this.state.nom} onChange={(e) => this.handleChange(e)} />
             </p>
             <p>
                 Prénom
-            <input type="text" value={this.state.prenom} onChange={(e) => this.handlePrenomChange(e)} />
+            <input name="prenom" type="text" value={this.state.prenom} onChange={(e) => this.handleChange(e)} />
             </p>
             <p>
                 Sexe
-                <select value={this.state.sexe} onChange={(e) => this.handleSexeChange(e)}>
+                <select name="sexe" value={this.state.sexe} onChange={(e) => this.handleChange(e)}>
                     <option value="H">Homme</option>
                     <option value="F">Femme</option>
                 </select>
             </p>
             <p>
                 babyfoot
-            <input type="checkbox" checked={this.state.babyfoot} onChange={(e) => this.handleBabyfootChange(e)} />
+            <input name="babyfoot" type="checkbox" checked={this.state.babyfoot} onChange={(e) => this.handleChange(e)} />
                 billard
-            <input type="checkbox" checked={this.state.billard} onChange={(e) => this.handleBillardChange(e)} />
+            <input name="billard" type="checkbox" checked={this.state.billard} onChange={(e) => this.handleChange(e)} />
             </p>
             <input type="submit" value="Inscrire" />
         </form >;
