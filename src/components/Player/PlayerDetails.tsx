@@ -1,5 +1,6 @@
 import React from 'react';
-import { PlayerType } from './Player';
+import { PlayerType } from '../../type/PlayerType';
+
 
 type MyProps = {
     player: PlayerType;

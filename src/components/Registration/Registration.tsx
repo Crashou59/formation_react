@@ -1,15 +1,25 @@
 import React from 'react';
-import { PlayerType } from '../Player/Player';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Registration.css';
+import { connect, ConnectedProps } from 'react-redux';
+import { addPlayer } from './../../actions/PlayerAction';
+import { PlayerType } from '../../type/PlayerType';
 
-
-type MyProps = {
-    onRegistration?: (p: PlayerType) => void;
+const mapDispatchToProps = {
+    registerPlayer: (p: PlayerType) => addPlayer(p)
 };
 
-export class Registration extends React.Component<MyProps> {
+const connector = connect(
+    null,
+    mapDispatchToProps
+)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type MyProps = PropsFromRedux & {
+}
+
+class Registration extends React.Component<MyProps> {
     render() {
         return <Formik
             initialValues={{ nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false }}
@@ -22,9 +32,7 @@ export class Registration extends React.Component<MyProps> {
                     .required('Required')
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                if (this.props.onRegistration) {
-                    this.props.onRegistration(values);
-                }
+                this.props.registerPlayer(values);
                 setSubmitting(true);
                 resetForm({});
             }}
@@ -53,3 +61,5 @@ export class Registration extends React.Component<MyProps> {
     }
 
 }
+
+export default connector(Registration)

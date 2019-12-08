@@ -6,8 +6,8 @@ import {
     Link,
     Redirect
 } from "react-router-dom";
-import { Player } from '../Player/Player';
-import { Registration } from '../Registration/Registration';
+import Player from '../Player/Player';
+import Registration from '../Registration/Registration';
 
 const fakeAuth = {
     isAuthenticated: false

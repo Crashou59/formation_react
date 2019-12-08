@@ -2,17 +2,29 @@ import React from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
+import { connect, ConnectedProps } from 'react-redux'
+import { selectPlayer } from '../../actions/PlayerAction';
+import { PlayerType } from '../../type/PlayerType';
+import { RootState } from '../../state/RootState';
 
-export type PlayerType = {
-    nom?: string;
-    prenom?: string;
-    nickname?: string;
+const mapStateToProps = (state: RootState) => ({
+    players: state.players,
+    selected: state.selected
+});
+
+const mapDispatchToProps = {
+    selectPlayer: (p: PlayerType) => selectPlayer(p)
 };
 
-type MyState = {
-    players: PlayerType[];
-    selected: PlayerType;
-};
+const connector = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type MyProps = PropsFromRedux & {
+}
 
 export const retrivePlayersLastName = (players: PlayerType[]) => {
     if (!Array.isArray(players)) {
@@ -22,29 +34,14 @@ export const retrivePlayersLastName = (players: PlayerType[]) => {
 };
 
 
-export class Player extends React.Component<{}, MyState> {
-
-    state: MyState = {
-        players: [{ nom: 'toto', prenom: 'toto', nickname: 'ToToR ' },
-        { nom: 'you', prenom: 'you', nickname: 'La Fleche Noire du Maroc' },
-        { nom: 'JuL', prenom: 'JuL', nickname: 'elGossBoDu59' }],
-        selected: {}
-    }
-
-    registrationEvent(p: PlayerType) {
-        this.setState({ players: [...this.state.players, p] });
-    }
-
-    selectPlayer(selected: PlayerType) {
-        this.setState({
-            selected
-        });
-    }
+export class Player extends React.Component<MyProps> {
 
     render() {
         return <>
-            <PlayerList players={this.state.players} onPlayerChange={(p: PlayerType) => this.selectPlayer(p)} />
-            <PlayerDetails player={this.state.selected} />
+            <PlayerList players={this.props.players} onPlayerChange={(p: PlayerType) => this.props.selectPlayer(p)} />
+            <PlayerDetails player={this.props.selected} />
         </ >;
     }
 }
+
+export default connector(Player)
