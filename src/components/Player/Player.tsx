@@ -1,6 +1,7 @@
 import React from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
+import { PlayerDetails } from './PlayerDetails';
 
 export type PlayerType = {
     nom?: string;
@@ -30,11 +31,7 @@ export class Player extends React.Component<{}, MyState> {
     render() {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p: PlayerType) => this.selectPlayer(p)} />
-            <div className="Player-details">
-                <p> Nom : {this.state.selected.nom} </p>
-                <p> Prenom : {this.state.selected.prenom}</p>
-                <p> Nickname : {this.state.selected.nickname}</p>
-            </div>
+            <PlayerDetails player={this.state.selected} />
         </ >;
     }
 }
