@@ -7,19 +7,23 @@ import { Provider } from 'react-redux'
 import PlayerReducer from './reducers/PlayerReducer';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import playerEpic from './epics/PlayerEpics';
-
+import { compose } from 'redux';
 
 export const rootEpic = combineEpics(
   playerEpic
 );
 
+
 const epicMiddleware = createEpicMiddleware();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   PlayerReducer,
-  applyMiddleware(epicMiddleware));
+  composeEnhancers(
+    applyMiddleware(epicMiddleware)));
 
 
-epicMiddleware.run(rootEpic);
+epicMiddleware.run(playerEpic);
 
 
 
