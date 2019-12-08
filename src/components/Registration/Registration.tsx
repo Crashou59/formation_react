@@ -1,63 +1,53 @@
 import React from 'react';
 import { PlayerType } from '../Player/Player';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import './Registration.css';
 
 
 type MyProps = {
-    onRegistration: (e: React.FormEvent<HTMLFormElement>, p: PlayerType) => void;
+    onRegistration: (p: PlayerType) => void;
 };
 
-type MyState = {
-    nickname: string;
-    nom: string;
-    prenom: string;
-    sexe: string;
-    babyfoot: boolean;
-    billard: boolean;
-};
-export class Registration extends React.Component<MyProps, MyState> {
-
-    state = { nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false };
-
-
-    handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
-        let value: string | boolean = event.currentTarget.value;
-        if (event instanceof HTMLInputElement && event.currentTarget.type === 'checkbox') {
-            value = (event as React.ChangeEvent<HTMLInputElement>).currentTarget.checked;
-        }
-        if (Object.keys(this.state).includes(event.currentTarget.name)) {
-            this.setState({ [event.currentTarget.name]: value } as Pick<MyState, keyof MyState>);
-        }
-    }
-
+export class Registration extends React.Component<MyProps> {
     render() {
-        return <form onSubmit={(ev) => this.props.onRegistration(ev, { ...this.state })}>
-            <p>
-                Nickame
-          <input name="nickname" type="text" value={this.state.nickname} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Nom
-            <input name="nom" type="text" value={this.state.nom} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Prénom
-            <input name="prenom" type="text" value={this.state.prenom} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <p>
-                Sexe
-                <select name="sexe" value={this.state.sexe} onChange={(e) => this.handleChange(e)}>
+        return <Formik
+            initialValues={{ nickname: '', nom: '', prenom: '', sexe: 'H', babyfoot: false, billard: false }}
+            validationSchema={Yup.object({
+                nickname: Yup.string()
+                    .max(15, 'Must be 15 characters or less')
+                    .required('Required'),
+                nom: Yup.string()
+                    .max(20, 'Must be 20 characters or less')
+                    .required('Required')
+            })}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+                this.props.onRegistration(values);
+                setSubmitting(true);
+                resetForm({});
+            }}
+        >
+            <Form >
+                <label htmlFor="nickname">nickname</label>
+                <Field name="nickname" type="text" />
+                <ErrorMessage name="nickname" render={msg => <div className="error">{msg}</div>} />
+                <label htmlFor="nom">nom</label>
+                <Field name="nom" type="text" />
+                <ErrorMessage name="nom" render={msg => <div className="error">{msg}</div>} />
+                <label htmlFor="prenom">prenom</label>
+                <Field name="prenom" type="text" />
+                <label htmlFor="sexe">sexe</label>
+                <Field name="sexe" as="select" className="my-select">
                     <option value="H">Homme</option>
                     <option value="F">Femme</option>
-                </select>
-            </p>
-            <p>
-                babyfoot
-            <input name="babyfoot" type="checkbox" checked={this.state.babyfoot} onChange={(e) => this.handleChange(e)} />
-                billard
-            <input name="billard" type="checkbox" checked={this.state.billard} onChange={(e) => this.handleChange(e)} />
-            </p>
-            <input type="submit" value="Inscrire" />
-        </form >;
+                </Field>
+                <label htmlFor="babyfoot">babyfoot</label>
+                <Field name="babyfoot" type="checkbox" />
+                <label htmlFor="billard">billard</label>
+                <Field name="billard" type="checkbox" />
+                <button type="submit">Inscrire</button>
+            </Form>
+        </Formik>
     }
 
 }
