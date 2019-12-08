@@ -1,12 +1,7 @@
-
 import React from 'react';
-export class PlayerDisplay extends React.Component {
 
-    render() {
-        return <ul>
-            <li>
-                <span onClick={() => this.props.onPlayerChange(this.props.player)}> {this.props.player.nickname}</span>
-            </li>
-        </ul>;
-    }
-}
+export const PlayerDisplay = (props) => <ul>
+    <li>
+        <span onClick={() => props.onPlayerChange(props.player)}> {props.player.nickname}</span>
+    </li>
+</ul>;  

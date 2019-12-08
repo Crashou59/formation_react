@@ -12,14 +12,14 @@ export const retrivePlayersLastName = players => {
     }
     return players.map(player => player.nom).filter(elm => elm);
 };
-class Player extends React.Component {
-    render() {
-        return <>
-            <PlayerList players={this.props.players} onPlayerChange={(p) => this.props.selectPlayer(p)} />
-            <PlayerDetails player={this.props.selected} />
-        </ >;
-    }
-}
+
+const Player = (props) =>
+    <>
+        <PlayerList players={props.players} onPlayerChange={(p) => props.selectPlayer(p)} />
+        <PlayerDetails player={props.selected} />
+    </ >;
+
+
 
 const mapStateToProps = state => ({
     players: state.players,
