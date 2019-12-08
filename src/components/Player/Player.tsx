@@ -16,7 +16,10 @@ type MyState = {
 };
 
 export const retrivePlayersLastName = (players: PlayerType[]) => {
-    return players.map((player: PlayerType) => player.nom);
+    if (!Array.isArray(players)) {
+        return [];
+    }
+    return players.map(player => player.nom).filter(elm => elm);
 };
 
 
