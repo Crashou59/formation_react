@@ -8,10 +8,6 @@ export type PlayerType = {
     nickname?: string;
 };
 
-type MyProps = {
-    selectPlayer: (index: number) => {};
-};
-
 type MyState = {
     players: PlayerType[];
     selected: PlayerType;
@@ -25,15 +21,15 @@ export class Player extends React.Component<{}, MyState> {
         selected: {}
     }
 
-    selectPlayer(index: number) {
+    selectPlayer(selected: PlayerType) {
         this.setState({
-            selected: this.state.players[index]
+            selected
         });
     }
 
     render() {
         return <>
-            <PlayerList players={this.state.players} onPlayerChange={(index: number) => this.selectPlayer(index)} />
+            <PlayerList players={this.state.players} onPlayerChange={(p: PlayerType) => this.selectPlayer(p)} />
             <div className="Player-details">
                 <p> Nom : {this.state.selected.nom} </p>
                 <p> Prenom : {this.state.selected.prenom}</p>
