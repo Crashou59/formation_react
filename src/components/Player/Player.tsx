@@ -14,6 +14,12 @@ type MyState = {
     players: PlayerType[];
     selected: PlayerType;
 };
+
+export const retrivePlayersLastName = (players: PlayerType[]) => {
+    return players.map((player: PlayerType) => player.nom);
+};
+
+
 export class Player extends React.Component<{}, MyState> {
 
     state: MyState = {
