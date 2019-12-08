@@ -2,7 +2,6 @@ import React from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
-import { Registration } from './../Registration/Registration';
 
 export type PlayerType = {
     nom?: string;
@@ -46,7 +45,6 @@ export class Player extends React.Component<{}, MyState> {
         return <>
             <PlayerList players={this.state.players} onPlayerChange={(p: PlayerType) => this.selectPlayer(p)} />
             <PlayerDetails player={this.state.selected} />
-            <Registration onRegistration={(p) => this.registrationEvent(p)} />
         </ >;
     }
 }

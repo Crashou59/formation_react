@@ -6,7 +6,7 @@ import './Registration.css';
 
 
 type MyProps = {
-    onRegistration: (p: PlayerType) => void;
+    onRegistration?: (p: PlayerType) => void;
 };
 
 export class Registration extends React.Component<MyProps> {
@@ -22,7 +22,9 @@ export class Registration extends React.Component<MyProps> {
                     .required('Required')
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-                this.props.onRegistration(values);
+                if (this.props.onRegistration) {
+                    this.props.onRegistration(values);
+                }
                 setSubmitting(true);
                 resetForm({});
             }}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
-import { Player } from './components/Player/Player';
+import { TopMenu } from './components/TopMenu/TopMenu';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <Header nickname="Toto"></Header>
       </header>
-      <Player />
+      <TopMenu />
     </div>
   );
 }
