@@ -2,7 +2,7 @@
 
 exports[`PlayerDetails coponent renders correctly 1`] = `
 <div
-  className="Player-details"
+  className="Player-details panel"
 >
   <p>
      Nom : 
