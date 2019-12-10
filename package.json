@@ -150,6 +150,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^3.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "react-test-renderer": "^16.12.0"
