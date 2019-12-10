@@ -6,13 +6,8 @@ type MyProps = {
     onPlayerChange: (p: PlayerType) => void;
     player: PlayerType;
 };
-export class PlayerDisplay extends React.Component<MyProps> {
-
-    render() {
-        return <ul>
-            <li>
-                <span onClick={() => this.props.onPlayerChange(this.props.player)}> {this.props.player.nickname}</span>
-            </li>
-        </ul>;
-    }
-}
+export const PlayerDisplay = (props: MyProps) => <ul>
+    <li>
+        <span onClick={() => props.onPlayerChange(props.player)}> {props.player.nickname}</span>
+    </li>
+</ul>;  

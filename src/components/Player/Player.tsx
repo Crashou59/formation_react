@@ -34,14 +34,10 @@ export const retrivePlayersLastName = (players: PlayerType[]) => {
 };
 
 
-export class Player extends React.Component<MyProps> {
-
-    render() {
-        return <>
-            <PlayerList players={this.props.players} onPlayerChange={(p: PlayerType) => this.props.selectPlayer(p)} />
-            <PlayerDetails player={this.props.selected} />
-        </ >;
-    }
-}
+const Player = (props: MyProps) =>
+    <>
+        <PlayerList players={props.players} onPlayerChange={(p) => props.selectPlayer(p)} />
+        <PlayerDetails player={props.selected} />
+    </ >;
 
 export default connector(Player)

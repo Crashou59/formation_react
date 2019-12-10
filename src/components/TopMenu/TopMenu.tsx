@@ -56,21 +56,17 @@ export class TopMenu extends React.Component {
     }
 }
 
-class PrivateRoute extends React.Component {
-    render() {
-        return (<Route
-            render={({ location }) =>
-                fakeAuth.isAuthenticated ? (
-                    this.props.children
-                ) : (
-                        <Redirect
-                            to={{
-                                pathname: "/",
-                                state: { from: location }
-                            }}
-                        />
-                    )
-            }
-        />);
+const PrivateRoute = (props: any) => <Route
+    render={({ location }) =>
+        fakeAuth.isAuthenticated ? (
+            props.children
+        ) : (
+                <Redirect
+                    to={{
+                        pathname: "/",
+                        state: { from: location }
+                    }}
+                />
+            )
     }
-}
+/>
