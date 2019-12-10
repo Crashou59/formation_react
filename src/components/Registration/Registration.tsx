@@ -38,16 +38,16 @@ const Registration = (props: MyProps) =>
     >
         <Form >
             <label htmlFor="nickname">nickname</label>
-            <Field name="nickname" type="text" />
+            <Field name="nickname" type="text" data-cy="nickname" />
             <ErrorMessage name="nickname" render={msg => <div className="error">{msg}</div>} />
             <label htmlFor="nom">nom</label>
-            <Field name="nom" type="text" />
+            <Field name="nom" type="text" data-cy="nom" />
             <ErrorMessage name="nom" render={msg => <div className="error">{msg}</div>} />
             <label htmlFor="prenom">prenom</label>
-            <Field name="prenom" type="text" />
+            <Field name="prenom" type="text" data-cy="prenom" />
             <label htmlFor="sexe">sexe</label>
-            <Field name="sexe" as="select" className="my-select">
-                <option value="H">Homme</option>
+            <Field name="sexe" as="select" className="my-select" data-cy='select'>
+                <option value="H" data-cy='F'>Homme</option>
                 <option value="F">Femme</option>
             </Field>
             <label htmlFor="babyfoot">babyfoot</label>
