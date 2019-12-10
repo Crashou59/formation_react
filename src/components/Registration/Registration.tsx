@@ -3,11 +3,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './Registration.css';
 import { connect, ConnectedProps } from 'react-redux';
-import { addPlayer } from './../../actions/PlayerAction';
+import { addPlayerCall } from './../../actions/PlayerAction';
 import { PlayerType } from '../../type/PlayerType';
 
 const mapDispatchToProps = {
-    registerPlayer: (p: PlayerType) => addPlayer(p)
+    registerPlayer: (p: PlayerType) => addPlayerCall(p)
 };
 
 const connector = connect(
