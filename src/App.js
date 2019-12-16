@@ -9,10 +9,11 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import playerEpic from './epics/PlayerEpics';
 import { compose } from 'redux';
 
+export const favoriteLanguageContext = React.createContext('frensh');
+
 export const rootEpic = combineEpics(
   playerEpic
 );
-
 
 const epicMiddleware = createEpicMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -31,8 +32,8 @@ function App() {
   return (<Provider store={store}>
     <div className="App">
       <header className="App-header">
-        <Header nickname="Toto"></Header>
-
+        <favoriteLanguageContext.Provider value='frensh'><Header nickname="Toto"></Header>
+        </favoriteLanguageContext.Provider>
       </header>
       <TopMenu />
     </div >
