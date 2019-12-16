@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
@@ -9,17 +9,9 @@ import { RootState } from '../../state/RootState';
 
 const mapStateToProps = (state: RootState) => ({
     players: state.players,
-    selected: state.selected
 });
 
-const mapDispatchToProps = {
-    selectPlayer: (p: PlayerType) => selectPlayer(p)
-};
-
-const connector = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)
+const connector = connect(mapStateToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -34,10 +26,18 @@ export const retrivePlayersLastName = (players: PlayerType[]) => {
 };
 
 
-const Player = (props: MyProps) =>
-    <>
-        <PlayerList players={props.players} onPlayerChange={(p) => props.selectPlayer(p)} />
-        <PlayerDetails player={props.selected} />
+const Player = (props: MyProps) => {
+
+const [selectedPlayer, setSelectedPlayer] = useState<PlayerType>({});
+useEffect(() => {
+    document.title = `${selectedPlayer.nom || 'Title'}`;
+  }, [selectedPlayer]);
+
+    return <>
+        <PlayerList players={props.players} onPlayerChange={(p) => setSelectedPlayer(p)} />
+        <PlayerDetails player={selectedPlayer} />
     </ >;
+
+}
 
 export default connector(Player)
