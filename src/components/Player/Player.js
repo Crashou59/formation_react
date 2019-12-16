@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Player.css';
 import { PlayerList } from './PlayerList';
 import { PlayerDetails } from './PlayerDetails';
@@ -6,32 +6,30 @@ import { selectPlayer } from './../../actions/PlayerActions';
 import { connect } from 'react-redux'
 
 
-export const retrivePlayersLastName = players => {
+export const retreivePlayersLastName = players => {
     if (!Array.isArray(players)) {
         return [];
     }
     return players.map(player => player.nom).filter(elm => elm);
 };
 
-const Player = (props) =>
-    <>
-        <PlayerList players={props.players} onPlayerChange={(p) => props.selectPlayer(p)} />
-        <PlayerDetails player={props.selected} />
+const Player = (props) => {
+
+    const [selectedPlayer, setSelectedPlayer] = useState({});
+
+    useEffect(() => {
+    document.title = `${selectedPlayer.nom || 'Title'}`;
+  });
+
+return <>
+        <PlayerList players={props.players} onPlayerChange={(p) => setSelectedPlayer(p)} />
+        <PlayerDetails player={selectedPlayer} />
     </ >;
-
-
+}
 
 const mapStateToProps = state => ({
-    players: state.players,
-    selected: state.selected
+    players: state.players
 });
 
-const mapDispatchToProps = dispatch => ({
-    selectPlayer: (p) => dispatch(selectPlayer(p))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Player)
+export default connect(mapStateToProps)(Player)
 
