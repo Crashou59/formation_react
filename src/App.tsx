@@ -15,6 +15,7 @@ declare global {
   }
 }
 
+export const favoriteLanguageContext = React.createContext('frensh');
 
 const epicMiddleware = createEpicMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,7 +31,9 @@ function App() {
   return (<Provider store={store}>
     <div className="App">
       <header className="App-header">
+        <favoriteLanguageContext.Provider value='frensh'>
         <Header nickname="Toto"></Header>
+        </favoriteLanguageContext.Provider>
       </header>
       <TopMenu />
     </div>
