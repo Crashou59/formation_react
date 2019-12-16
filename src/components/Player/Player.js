@@ -19,7 +19,7 @@ const Player = (props) => {
 
     useEffect(() => {
     document.title = `${selectedPlayer.nom || 'Title'}`;
-  });
+  }, [selectedPlayer]);
 
 return <>
         <PlayerList players={props.players} onPlayerChange={(p) => setSelectedPlayer(p)} />
