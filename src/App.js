@@ -9,7 +9,7 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import playerEpic from './epics/PlayerEpics';
 import { compose } from 'redux';
 
-export const favoriteLanguageContext = React.createContext('frensh');
+export const favoriteLanguageContext = React.createContext('french');
 
 export const rootEpic = combineEpics(
   playerEpic
