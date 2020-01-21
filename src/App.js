@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, createContext } from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
 import { TopMenu } from './components/TopMenu/TopMenu';
@@ -9,7 +9,7 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import playerEpic from './epics/PlayerEpics';
 import { compose } from 'redux';
 
-export const favoriteLanguageContext = React.createContext('french');
+export const favoriteLanguageContext = createContext([{}, function(){}]);
 
 export const rootEpic = combineEpics(
   playerEpic
@@ -27,12 +27,13 @@ const store = createStore(
 epicMiddleware.run(playerEpic);
 
 
-
-function App() {
+const App = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState('english');
   return (<Provider store={store}>
     <div className="App">
       <header className="App-header">
-        <favoriteLanguageContext.Provider value='frensh'><Header nickname="Toto"></Header>
+        <favoriteLanguageContext.Provider value={{favoriteLanguage: selectedLanguage, setFavoriteLanguage: setSelectedLanguage}}>
+          <Header nickname="Toto"></Header>
         </favoriteLanguageContext.Provider>
       </header>
       <TopMenu />
